@@ -3,6 +3,10 @@ package com.weicai.springboot;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ServiceLoader;
+
 /**
  * @ClassName WeicaiImportSelector
  * @Description
@@ -12,8 +16,12 @@ import org.springframework.core.type.AnnotationMetadata;
  **/
 public class WeicaiImportSelector implements DeferredImportSelector {
 	public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-		String[] name = new String[1];
-		name[0] = WebServerAutoConfiguration.class.getName();
-		return name;
+		// 自动配置
+		ServiceLoader<AutoConfiguration> loader = ServiceLoader.load(AutoConfiguration.class);
+		List<String> list = new ArrayList<String>();
+		for (AutoConfiguration configuration : loader) {
+			list.add(configuration.getClass().getName());
+		}
+		return list.toArray(new String[0]);
 	}
 }
