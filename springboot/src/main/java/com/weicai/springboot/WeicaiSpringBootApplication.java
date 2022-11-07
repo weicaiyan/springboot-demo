@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Configuration
 @ComponentScan
-@Import(WebServerAutoConfiguration.class)
+@Import(WeicaiImportSelector.class)
 public @interface WeicaiSpringBootApplication {
 }
